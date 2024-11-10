@@ -58,12 +58,12 @@ ADSEC currently supports the following types of calculations:
 Currently, ADSEC supports first-principles calculations using the **VASP** software.
 
 ## 2. Quick Start
-### 2.1. Install APEX
+### 2.1. Install ADSEC
 The current approach is to intall from the source code. Firstly clone the code from repository:
 ```shell
 git clone https://github.com/drop-ener/ADSEC.git
 ```
-then install APEX by:
+then install ADSEC by:
 ```shell
 cd ADSEC
 pip install .
@@ -87,7 +87,7 @@ Al_slab_001_ads_H_ontop1_example
 Here we h `global_bohrium.json`, along with a folder confs `confs` containing the bulk Al structure and VASP-related input files for the calculation.
 
 #### 2.2.1. Submit to the Bohrium
-The most efficient method for submitting an APEX workflow is through the pre-built execution environment of Argo on the [Bohrium cloud platform](https://bohrium.dp.tech). This is especially convenient and robust for massive task-intensive workflows running concurrently. It is necessary to create a **Bohrium account** before running. Below is an example of a global.json file for this approach.
+The most efficient method for submitting an ADSEC workflow is through the pre-built execution environment of Argo on the [Bohrium cloud platform](https://bohrium.dp.tech). This is especially convenient and robust for massive task-intensive workflows running concurrently. It is necessary to create a **Bohrium account** before running. Below is an example of a global.json file for this approach.
 
 ```json
 {
@@ -263,8 +263,17 @@ The parameter file for the corresponding adsorption energy calculation is as fol
                           "ispin":           1,
                           "ibrion":          2,
                           "nsw":             500,
-                                  "sigma":           0.5}
-
+                          "ediff":           1e-4,
+                          "ediffg":          -0.8,
+                          "encut":           250,
+                          "kspacing":        0.5,
+                          "kgamma":          false,
+                          "lreal":           "auto",
+                          "ldipot":          true,
+                          "idipot":           3,
+                          "gga":             "RP",
+                          "ismear":           1,
+                          "sigma":           0.5}
         },
         "relaxtion_2": {
         "type":      "adslab_relax_2",
@@ -276,10 +285,19 @@ The parameter file for the corresponding adsorption energy calculation is as fol
         "filter_flag":                       false,
         "cal_setting":   {"isif":            2,
                           "ispin":           1,
-                          "ibrion":        a":             "RP",
+                          "ibrion":          2,
+                          "nsw":             1000,
+                          "ediff":           1e-5,
+                          "ediffg":          -0.03,
+                          "encut":           400,
+                          "kspacing":        0.3,
+                          "kgamma":          false,
+                          "lreal":           "auto",
+                          "ldipot":          true,
+                          "idipot":           3,
+                          "gga":             "RP",
                           "ismear":           1,
                           "sigma":           0.5}
-
         },
      "static": {
         "type":      "adslab_sp",
@@ -290,8 +308,17 @@ The parameter file for the corresponding adsorption energy calculation is as fol
         "filter_flag":                       false,
         "cal_setting":   {"isif":            0,
                           "ispin":           1,
-                                          "sigma":           0.5}
-
+                          "nsw":             0,
+                          "ediff":           1e-5,
+                          "encut":           400,
+                          "kspacing":        0.3,
+                          "kgamma":          false,
+                          "lreal":          "auto",
+                          "ldipot":          true,
+                          "idipot":           3,
+                          "gga":             "RP",
+                          "ismear":           1,
+                          "sigma":           0.5}
         }
     },
 ```
@@ -306,10 +333,21 @@ The parameter file for the corresponding adsorption energy calculation is as fol
                           "nsw":             500,
                           "ediff":           1e-5,
                           "ediffg":          -0.03,
-                          "encut":                      "kgamma":          false,
+                          "encut":           500,
+                          "kspacing":        0.35,
+                          "kgamma":          false,
                           "gga":             "RP"}
 
-        }
+        },
+    "static": {
+        "type":      "bulk_sp",
+        "cal_setting":   {"isif":            0,
+                          "nsw":             0,
+                          "ediff":           1e-5,
+                          "encut":           500,
+                          "kspacing":        0.35,
+                          "kgamma":          false,
+                          "gga":             "RP"}
   }
 }
 ```
