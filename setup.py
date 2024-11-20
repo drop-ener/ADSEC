@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="adsec-flow",
-    version="0.0.9",
+    version="0.1",
     author="Xiaoze Yuan",
     author_email="yuanxiaoze@dp.tech",
     description="ADSorption Energy Calculation",
